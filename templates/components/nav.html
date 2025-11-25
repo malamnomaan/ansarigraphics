@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
+    <div class="container">
+
+        <!-- Brand -->
+        <a href="/" class="navbar-brand fw-bold fs-4">ag</a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu -->
+        <div id="navMenu" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a href="/" class="nav-link {% if request.path == '/' %}active fw-semibold{% endif %}">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/blogs/" class="nav-link {% if '/blogs' in request.path %}active fw-semibold{% endif %}">
+                        Blogs
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/contact/" class="nav-link {% if '/contact' in request.path %}active fw-semibold{% endif %}">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
