@@ -1,37 +1,26 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm py-3">
-    <div class="container">
+<header id="header" class="header d-flex align-items-center light-background sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
 
-        <!-- Brand -->
-        <a href="/" class="navbar-brand fw-bold fs-4">ag</a>
-
-        <!-- Mobile Toggle -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Menu -->
-        <div id="navMenu" class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a href="/" class="nav-link {% if request.path == '/' %}active fw-semibold{% endif %}">
-                        Home
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="/blogs/" class="nav-link {% if '/blogs' in request.path %}active fw-semibold{% endif %}">
-                        Blogs
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="/contact/" class="nav-link {% if '/contact' in request.path %}active fw-semibold{% endif %}">
-                        Contact
-                    </a>
-                </li>
-
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <div class="header-social-links">
+            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
         </div>
+        <div class="hero-actions aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+            <a href="portfolio.html" class="btn btn-outline-light">Login</a>
+        </div>
+
     </div>
-</nav>
+</header>
