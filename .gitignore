@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.log
+
+# Virtual environment
+venv/
+.env/
+ENV/
+env/
+*.env
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Django
+/staticfiles/
+/media/
+/static/
+*.pot
+*.pyc
+
+# Bytecode
+*.pyc
+*.pyo
+*.pyd
+
+# Cache
+*.DS_Store
+*.pytest_cache/
+*.mypy_cache/
+*.ruff_cache/
+
+# Django collected static
+/static/
+
+# Local settings
+settings_local.py
+
+# Logs
+*.log
+
+# Compiled
+*.mo
+
+# Other
+node_modules/
