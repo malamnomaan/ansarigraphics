@@ -1,3 +1,9 @@
 from django.db import models
 
 # Create your models here.
+class Service(models.Model):
+    title = models.CharField(max_length=150)
+    full_description = models.TextField(blank=True)
+    icon = models.CharField(max_length=100, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
