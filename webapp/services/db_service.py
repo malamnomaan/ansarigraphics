@@ -1,7 +1,7 @@
 from django.db.models import Q
 from webapp.models import Service
 
-def get_service(service_id=ModuleNotFoundError):
+def get_service(service_id=None):
     """
         get service
     """
@@ -15,14 +15,13 @@ def add_new_service(data):
     """
         add new service
     """
-    data = {
-        "title": "Custom Web Development",
-        "full_description": "Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat. Curabitur non nulla sit amet nisl tempus convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "icon": "bi bi-code-slash",
-
-    }
-    Service.objects.create(**data)
-    return True
+    msg = "Service added successfully"
+    if not data.get("id"):
+        Service.objects.create(**data)
+    else:
+        Service.objects.filter(id=data.get("id")).update(**data)
+        msg = "Service updated successfully"
+    return True, msg
 
 def activation_service(service_id, status):
     """

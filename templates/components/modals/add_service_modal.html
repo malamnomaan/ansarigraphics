@@ -1,0 +1,41 @@
+<!-- ...existing code... -->
+<div class="modal fade" id="addservicemodal" tabindex="-1" aria-labelledby="addServiceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- changed: add modal-panel class so global css targets this modal -->
+        <div class="modal-content border-0 rounded-3 shadow-sm modal-panel">
+            <div class="modal-body p-0">
+                <!-- keep consultation-form (no bg-white so theme surface applies) -->
+                <div class="consultation-form p-4">
+                    <div class="form-header d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="m-0" id="addServiceLabel">Add Service</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="service-title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="service-title" name="title" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="service-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="service-description" name="description" rows="4"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="service-icon" class="form-label">Icon (bi class) <a
+                                href="https://icons.getbootstrap.com/" target="_blank">check icons</a></label>
+                        <input type="text" class="form-control" id="service-icon" name="icon"
+                            placeholder="bi bi-code-slash">
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn-secondary saveservice">Save Service</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ...existing code... -->
