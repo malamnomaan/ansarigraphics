@@ -15,3 +15,6 @@ def gallery(request):
 
 def services(request):
     return render(request, 'public/services.html')
+
+def login(request):
+    return render(request, 'public/login.html')
