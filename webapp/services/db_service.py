@@ -1,5 +1,5 @@
 from django.db.models import Q
-from webapp.models import Service
+from webapp.models import Service, Category
 
 def get_service(service_id=None):
     """
@@ -33,4 +33,27 @@ def activation_service(service_id, status):
     Service.objects.filter(id=service_id).update(is_active=status)
     if status == False:
         msg = "Service deactivated successfully"
+    return True, msg
+
+def get_category(category_id=None):
+    """
+        get category
+    """
+    q = Q()
+    if category_id:
+        q&=Q(id=category_id)
+    category_obj = Category.objects.filter(q)
+    return category_obj
+
+def add_new_category(data):
+    """
+        add new category
+    """
+    msg = "Category added successfully"
+    if not data.get("id"):
+        data.pop("id")
+        Category.objects.create(**data)
+    else:
+        Category.objects.filter(id=data.get("id")).update(**data)
+        msg = "Category updated successfully"
     return True, msg

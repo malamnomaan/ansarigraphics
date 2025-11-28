@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
-from webapp.services.db_service import get_service, add_new_service
+from webapp.services.db_service import get_service, add_new_service, get_category, add_new_category
 
 # Create your views here.
 def landing(request):
@@ -18,7 +18,8 @@ def contact(request):
     return render(request, 'public/contact.html')
 
 def gallery(request):
-    return render(request, 'public/gallery.html')
+    all_categories = get_category()
+    return render(request, 'public/gallery.html', {"all_categories": all_categories})
 
 def services(request):
     all_services = get_service()
@@ -71,3 +72,10 @@ def get_service_by_id(request):
         "is_active": data[0].is_active,
     }
     return Response({"status": True, "message": "service data fetch successfully", "data": resp_data}, status=status.HTTP_200_OK)
+
+@csrf_exempt  # disables CSRF check
+@api_view(['POST'])
+def add_update_category(request):
+    data = request.data
+    success, message = add_new_category(data)
+    return Response({"status": success, "message": message}, status=status.HTTP_200_OK)
