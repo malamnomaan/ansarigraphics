@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.core.files.storage import default_storage
 from webapp.models import Service, Category
 
 def get_service(service_id=None):
@@ -44,16 +45,3 @@ def get_category(category_id=None):
         q&=Q(id=category_id)
     category_obj = Category.objects.filter(q)
     return category_obj
-
-def add_new_category(data):
-    """
-        add new category
-    """
-    msg = "Category added successfully"
-    if not data.get("id"):
-        data.pop("id")
-        Category.objects.create(**data)
-    else:
-        Category.objects.filter(id=data.get("id")).update(**data)
-        msg = "Category updated successfully"
-    return True, msg

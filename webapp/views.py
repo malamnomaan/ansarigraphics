@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -5,7 +6,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
-from webapp.services.db_service import get_service, add_new_service, get_category, add_new_category
+from django.conf import settings
+from webapp.services.db_service import get_service, add_new_service, get_category
+from webapp.models import Category
 
 # Create your views here.
 def landing(request):
@@ -76,6 +79,70 @@ def get_service_by_id(request):
 @csrf_exempt  # disables CSRF check
 @api_view(['POST'])
 def add_update_category(request):
-    data = request.data
-    success, message = add_new_category(data)
-    return Response({"status": success, "message": message}, status=status.HTTP_200_OK)
+    """
+    Single POST API for Add + Update Category
+    Accepts: multipart/form-data
+    """
+
+    if request.method != "POST":
+        return Response({"status": False, "message": "Invalid method"}, status=400)
+
+    category_id = request.POST.get("id")
+    name = request.POST.get("name")
+    description = request.POST.get("description")
+    uploaded_file = request.FILES.get("img_path")   # <-- FIXED NAME
+
+    # Validate
+    if not name:
+        return Response({"status": False, "message": "Name is required"}, status=400)
+
+    # --------------- SAVE IMAGE IF EXISTS ----------------
+    saved_img_path = None   # <-- FINAL path saved to DB
+
+    if uploaded_file:  # only if file exists
+        folder = os.path.join(settings.BASE_DIR, "static/categories")
+        os.makedirs(folder, exist_ok=True)
+
+        file_path = os.path.join(folder, uploaded_file.name)
+
+        # save image to static folder
+        with open(file_path, "wb+") as dest:
+            for chunk in uploaded_file.chunks():
+                dest.write(chunk)
+
+        saved_img_path =  "static/categories/" + uploaded_file.name  # <-- path saved to DB
+
+    # ---------------- ADD NEW CATEGORY -------------------
+    if not category_id:
+        Category.objects.create(
+            name=name,
+            description=description,
+            img_path=saved_img_path
+        )
+        return Response({"status": True, "message": "Category added successfully"})
+
+    # ---------------- UPDATE EXISTING CATEGORY -----------
+    try:
+        category = Category.objects.get(id=category_id)
+    except Category.DoesNotExist:
+        return Response({"status": False, "message": "Category not found"}, status=404)
+
+    category.name = name
+    category.description = description
+
+    # update only if new file uploaded
+    if saved_img_path:
+        category.img_path = saved_img_path
+
+    category.save()
+
+    return Response({"status": True, "message": "Category updated successfully"})
+
+def category_info(request):
+    try:
+        category_id = request.GET.get("category_id")
+        category = Category.objects.get(id=category_id)
+    except Category.DoesNotExist:
+        return redirect("gallery")  # Redirect if category not found
+
+    return render(request, 'public/category-details.html', {"category": category})
