@@ -56,3 +56,18 @@ def add_update_service(request):
     data = request.data
     success, message = add_new_service(data)
     return Response({"status": success, "message": message}, status=status.HTTP_200_OK)
+
+@csrf_exempt  # disables CSRF check
+@api_view(['POST'])
+def get_service_by_id(request):
+    data = request.data
+    data = get_service(data.get("service_id"))
+
+    resp_data = {
+        "id": data[0].id,
+        "title": data[0].title,
+        "full_description": data[0].full_description,
+        "icon": data[0].icon,
+        "is_active": data[0].is_active,
+    }
+    return Response({"status": True, "message": "service data fetch successfully", "data": resp_data}, status=status.HTTP_200_OK)

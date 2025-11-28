@@ -31,7 +31,11 @@
               <i class="{{service.icon}}"></i>
             </div>
             <div class="service-content">
-              <h3>{{service.title}}</h3>
+              <h3>{{service.title}} 
+                {% if user.is_authenticated %}
+                  <i class="bi bi-pencil-square edit_service" service_id="{{service.id}}"  data-bs-toggle="modal" data-bs-target="#addservicemodal"></i>
+                {% endif %}
+              </h3>
               <p>{{service.full_description}}</p>
             </div>
           </div>
@@ -75,6 +79,7 @@
         title: $("#service-title").val(),
         full_description: $("#service-description").val(),
         icon: $("#service-icon").val(),
+        id : $("#service-id").val()
       };
 
       $.ajax({
@@ -88,6 +93,35 @@
           if (response.status) {
             alert(response.message);
             location.reload();
+          } else {
+            alert("Error: " + response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          alert("AJAX error: " + error);
+        }
+      });
+    });
+
+    $(".edit_service").click(function () {
+      var service_id = $(this).attr("service_id");
+      $('#service-id').val("");
+      $("#service-title").val("");
+      $("#service-description").val("");
+      $("#service-icon").val("");
+      $.ajax({
+        url: "get_service_by_id",
+        type: "POST",
+        contentType: "application/json",
+        headers: { "X-CSRFToken": csrftoken },
+        data: JSON.stringify({ service_id: service_id }),
+        success: function (response) {
+          if (response.status) {
+            $('#service-id').val(response.data.id);
+            $("#service-title").val(response.data.title);
+            $("#service-description").val(response.data.full_description);
+            $("#service-icon").val(response.data.icon);
+            $(".saveservice").attr("service_id", service_id);
           } else {
             alert("Error: " + response.message);
           }

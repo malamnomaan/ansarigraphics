@@ -7,8 +7,13 @@
                 <!-- keep consultation-form (no bg-white so theme surface applies) -->
                 <div class="consultation-form p-4">
                     <div class="form-header d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="m-0" id="addServiceLabel">Add Service</h5>
+                        <h5 class="m-0 text-dark" id="addServiceLabel">Add Service</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="" class=""></div>
+                    <div class="form-group mb-3 d-none">
+                        <label for="service-id" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="service-id" name="id" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="service-title" class="form-label">Title</label>
@@ -30,7 +35,7 @@
 
                     <div class="d-flex justify-content-end gap-2">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button class="btn-secondary saveservice">Save Service</button>
+                        <button class="btn btn-secondary saveservice">Save Service</button>
                     </div>
 
                 </div>

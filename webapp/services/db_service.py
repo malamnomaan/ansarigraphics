@@ -17,8 +17,10 @@ def add_new_service(data):
     """
     msg = "Service added successfully"
     if not data.get("id"):
+        data.pop("id")
         Service.objects.create(**data)
     else:
+        
         Service.objects.filter(id=data.get("id")).update(**data)
         msg = "Service updated successfully"
     return True, msg
