@@ -1,5 +1,6 @@
 from django.db.models import Q
-from webapp.models import Service
+from django.core.files.storage import default_storage
+from webapp.models import Service, Category
 
 def get_service(service_id=None):
     """
@@ -34,3 +35,13 @@ def activation_service(service_id, status):
     if status == False:
         msg = "Service deactivated successfully"
     return True, msg
+
+def get_category(category_id=None):
+    """
+        get category
+    """
+    q = Q()
+    if category_id:
+        q&=Q(id=category_id)
+    category_obj = Category.objects.filter(q)
+    return category_obj

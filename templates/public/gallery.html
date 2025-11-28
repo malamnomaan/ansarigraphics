@@ -1,161 +1,108 @@
-
 {% extends "public/base.html" %}
 
 {% block content %}
 
-  <main class="main">
+<main class="main">
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="portfolio section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam</p>
-      </div><!-- End Section Title -->
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Gallery
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-strategy">Strategy</li>
-            <li data-filter=".filter-finance">Finance</li>
-            <li data-filter=".filter-operations">Operations</li>
-            <li data-filter=".filter-technology">Technology</li>
-          </ul><!-- End Portfolio Filters -->
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-strategy">
-              <div class="portfolio-card">
-                <div class="portfolio-img">
-                  <img src="static/assets/img/portfolio/portfolio-1.webp" alt="Portfolio Item" class="img-fluid">
-                  <div class="portfolio-overlay">
-                    <a href="static/assets/img/portfolio/portfolio-1.webp" class="glightbox portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                    <a href="#" class="portfolio-details-link"><i class="bi bi-link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <h4>Business Growth Strategy</h4>
-                  <p>Strategic Planning</p>
-                  <div class="portfolio-tags">
-                    <span>Strategy</span>
-                    <span>Consulting</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-finance">
-              <div class="portfolio-card">
-                <div class="portfolio-img">
-                  <img src="static/assets/img/portfolio/portfolio-2.webp" alt="Portfolio Item" class="img-fluid">
-                  <div class="portfolio-overlay">
-                    <a href="static/assets/img/portfolio/portfolio-2.webp" class="glightbox portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                    <a href="#" class="portfolio-details-link"><i class="bi bi-link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <h4>Financial Restructuring</h4>
-                  <p>Financial Advisory</p>
-                  <div class="portfolio-tags">
-                    <span>Finance</span>
-                    <span>Investment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-operations">
-              <div class="portfolio-card">
-                <div class="portfolio-img">
-                  <img src="static/assets/img/portfolio/portfolio-3.webp" alt="Portfolio Item" class="img-fluid">
-                  <div class="portfolio-overlay">
-                    <a href="static/assets/img/portfolio/portfolio-3.webp" class="glightbox portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                    <a href="#" class="portfolio-details-link"><i class="bi bi-link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <h4>Supply Chain Optimization</h4>
-                  <p>Operations Management</p>
-                  <div class="portfolio-tags">
-                    <span>Operations</span>
-                    <span>Logistics</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-technology">
-              <div class="portfolio-card">
-                <div class="portfolio-img">
-                  <img src="static/assets/img/portfolio/portfolio-4.webp" alt="Portfolio Item" class="img-fluid">
-                  <div class="portfolio-overlay">
-                    <a href="static/assets/img/portfolio/portfolio-4.webp" class="glightbox portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                    <a href="#" class="portfolio-details-link"><i class="bi bi-link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <h4>Digital Transformation</h4>
-                  <p>Technology Consulting</p>
-                  <div class="portfolio-tags">
-                    <span>Technology</span>
-                    <span>Innovation</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-strategy">
-              <div class="portfolio-card">
-                <div class="portfolio-img">
-                  <img src="static/assets/img/portfolio/portfolio-5.webp" alt="Portfolio Item" class="img-fluid">
-                  <div class="portfolio-overlay">
-                    <a href="static/assets/img/portfolio/portfolio-5.webp" class="glightbox portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                    <a href="#" class="portfolio-details-link"><i class="bi bi-link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <h4>Market Expansion</h4>
-                  <p>Strategic Planning</p>
-                  <div class="portfolio-tags">
-                    <span>Strategy</span>
-                    <span>Growth</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-finance">
-              <div class="portfolio-card">
-                <div class="portfolio-img">
-                  <img src="static/assets/img/portfolio/portfolio-6.webp" alt="Portfolio Item" class="img-fluid">
-                  <div class="portfolio-overlay">
-                    <a href="static/assets/img/portfolio/portfolio-6.webp" class="glightbox portfolio-lightbox"><i class="bi bi-plus"></i></a>
-                    <a href="#" class="portfolio-details-link"><i class="bi bi-link"></i></a>
-                  </div>
-                </div>
-                <div class="portfolio-info">
-                  <h4>Investment Strategy</h4>
-                  <p>Financial Advisory</p>
-                  <div class="portfolio-tags">
-                    <span>Finance</span>
-                    <span>Investment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Portfolio Items Container -->
-
+        {% if user.is_authenticated %}
+        <div style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addcategorymodal">
+          <i class="bi bi-plus-circle add_category"></i>
         </div>
+        {% endif %}
+      </h2>
+    </div><!-- End Section Title -->
 
-        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
-          <a href="#portfolio" class="btn btn-primary">View All Case Studies</a>
-        </div>
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
+
+          {% for category in all_categories %}
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-strategy">
+            <div class="portfolio-card">
+              <div class="portfolio-img">
+                <img src="{{category.img_path}}" alt="Portfolio Item" class="img-fluid">
+                <div class="portfolio-overlay">
+                  <a href="category_info?category_id={{category.id}}" class="portfolio-details-link"><i class="bi bi-link"></i></a>
+                  <a href="category_info?category_id={{category.id}}" class="portfolio-details-link"><i class="bi bi-link"></i></a>
+                </div>
+              </div>
+              <div class="portfolio-info">
+                <h4>{{category.name}}</h4>
+                <p>{{category.description}}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div><!-- End Portfolio Items Container -->
 
       </div>
+    </div>
 
-    </section><!-- /Portfolio Section -->
+  </section><!-- /Portfolio Section -->
+  {% include 'components/modals/add_category_modal.html' %}
+</main>
+{% endblock %}
 
-  </main>
+{% block customjs %}
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  $(document).ready(function () {
+    const csrftoken = getCookie('csrftoken');
+    $(".savecategory").click(function () {
+      var formData = new FormData();
+
+      formData.append("name", $("#category-title").val());
+      formData.append("description", $("#category-description").val());
+      formData.append("id", $("#category-id").val());
+
+      // Append file properly
+      var file = $("#category-icon")[0].files[0];
+      if (file) {
+        formData.append("img_path", file);
+      }
+
+      $.ajax({
+        url: "add_update_category",
+        type: "POST",
+        data: formData,
+        processData: false,  // important
+        contentType: false,  // important
+        headers: { "X-CSRFToken": csrftoken },
+        success: function (response) {
+          alert(response.message);
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          alert("AJAX error: " + error);
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}
