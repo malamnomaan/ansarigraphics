@@ -90,7 +90,7 @@ def add_update_category(request):
     category_id = request.POST.get("id")
     name = request.POST.get("name")
     description = request.POST.get("description")
-    uploaded_file = request.FILES.get("img_path")   # <-- FIXED NAME
+    uploaded_file = request.FILES.get("img_path")
 
     # Validate
     if not name:
@@ -148,30 +148,35 @@ def category_info(request):
 
     return render(request, 'public/category-details.html', {"category": category, 'gallery_items': gallery_items})
 
+@csrf_exempt  # disables CSRF check
+@api_view(['POST'])
 def add_gallery_item(request):
-    if request.method == "POST" and request.FILES.get("category_image"):
-        uploaded_file = request.FILES["category_image"]
-        category_id = request.POST.get("category_id")
-        description = request.POST.get("description", "")
+    if request.method == "POST":
+        uploaded_file = request.FILES.get("img_path")
+        if not uploaded_file:
+            return Response({"status": False, "message": "No image uploaded"}, status=400)
+
         title = request.POST.get("title", "")
-        folder = os.path.join(settings.BASE_DIR, "static/categories")
+        description = request.POST.get("description", "")
+        category_id = request.POST.get("category_id")
+
+        folder = os.path.join(settings.BASE_DIR, f"static/categories/{category_id}")
         os.makedirs(folder, exist_ok=True)
 
         file_path = os.path.join(folder, uploaded_file.name)
-
-        # save image to static folder
         with open(file_path, "wb+") as dest:
             for chunk in uploaded_file.chunks():
                 dest.write(chunk)
-        
-        # save image path to DB
+
         gallery_item = GalleryItem.objects.create(
             title=title,
-            image_url="static/categories/" + uploaded_file.name,
             description=description,
+            image_url=f"static/categories/{category_id}" + uploaded_file.name,
             category_id=category_id
         )
 
-        return Response({"status": True, "message": "Image uploaded successfully", "img_path": "static/categories/" + uploaded_file.name})
-
-    return Response({"status": False, "message": "No image uploaded"}, status=400)
+        return Response({
+            "status": True,
+            "message": "Image uploaded successfully",
+            "img_path": f"static/categories/{category_id}" + uploaded_file.name
+        })

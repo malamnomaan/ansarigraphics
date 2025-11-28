@@ -36,7 +36,7 @@ env/
 *.ruff_cache/
 
 # Django collected static
-/static/
+
 
 # Local settings
 settings_local.py

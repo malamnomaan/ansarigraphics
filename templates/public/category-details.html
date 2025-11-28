@@ -60,34 +60,24 @@
               </div>
             </div> -->
 
-            <div class="" data-aos="fade-up" data-aos-delay="200" min-height="500px">
+            <div class="" data-aos="fade-up" data-aos-delay="200">
               <div class="row g-2 mt-3">
+                {% for item in gallery_items %}
                 <div class="col-4">
-                  <img src="static/assets/img/portfolio/portfolio-4.webp" alt="Gallery Image1"
-                    class="img-fluid glightbox">
+                  <img src="{{item.image_url}}" alt="{{item.description}}"
+                    class="img-fluid glightbox" style="max-height: 285px; max-width: 430px;">
                 </div>
-                <div class="col-4">
-                  <img src="static/assets/img/portfolio/portfolio-6.webp" alt="Gallery Image"
-                    class="img-fluid glightbox">
-                </div>
-                <div class="col-4">
-                  <img src="static/assets/img/portfolio/portfolio-11.webp" alt="Gallery Image1 ejfewfbewkfb efbwkewkfbew ebwkfewkfbew bewjkfewjkfb"
-                    class="img-fluid glightbox">
-                </div>
-                <div class="col-4">
-                  <img src="static/assets/img/portfolio/portfolio-12.webp" alt="Gallery Image"
-                    class="img-fluid glightbox">
-                </div>
+                {% endfor %}
                 <!-- upload image input -->
-                 {% if user.is_authenticated %}
-                 <div class="col-4 mt-4">
+                {% if user.is_authenticated %}
+                <div class="col-4 mt-4">
                   <div style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addimagemodal">
                     <h1>
                       <i class="bi bi-plus-circle add_category"></i>
                     </h1>
                   </div>
                 </div>
-                  {% endif %}
+                {% endif %}
 
               </div>
             </div>
@@ -101,4 +91,61 @@
   {% include 'components/modals/add_image_modal.html' %}
 </main>
 
+{% endblock %}
+
+{% block customjs %}
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  $(document).ready(function () {
+    $(".saveimage").click(function (e) {
+      e.preventDefault();
+
+      var formData = new FormData();
+      var title = $("#image-title").val();
+      var description = $("#image-description").val();
+      var icon = $("#image-icon")[0].files[0];
+      var category_id = "{{category.id}}";
+
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("img_path", icon);
+      formData.append("category_id", category_id);
+
+      $.ajax({
+        url: "add_gallery_item",
+        type: "POST",
+        headers: { "X-CSRFToken": getCookie("csrftoken") },
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          if (response.status) {
+            alert(response.message);
+            location.reload();
+          } else {
+            alert("Error: " + response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          alert("An error occurred: " + error);
+        },
+      });
+    });
+  });
+</script>
 {% endblock %}
