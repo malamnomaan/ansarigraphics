@@ -8,7 +8,7 @@ from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from webapp.services.db_service import get_service, add_new_service, get_category
-from webapp.models import Category
+from webapp.models import Category, GalleryItem
 
 # Create your views here.
 def landing(request):
@@ -142,7 +142,36 @@ def category_info(request):
     try:
         category_id = request.GET.get("category_id")
         category = Category.objects.get(id=category_id)
+        gallery_items = GalleryItem.objects.filter(category=category, is_active=True)
     except Category.DoesNotExist:
         return redirect("gallery")  # Redirect if category not found
 
-    return render(request, 'public/category-details.html', {"category": category})
+    return render(request, 'public/category-details.html', {"category": category, 'gallery_items': gallery_items})
+
+def add_gallery_item(request):
+    if request.method == "POST" and request.FILES.get("category_image"):
+        uploaded_file = request.FILES["category_image"]
+        category_id = request.POST.get("category_id")
+        description = request.POST.get("description", "")
+        title = request.POST.get("title", "")
+        folder = os.path.join(settings.BASE_DIR, "static/categories")
+        os.makedirs(folder, exist_ok=True)
+
+        file_path = os.path.join(folder, uploaded_file.name)
+
+        # save image to static folder
+        with open(file_path, "wb+") as dest:
+            for chunk in uploaded_file.chunks():
+                dest.write(chunk)
+        
+        # save image path to DB
+        gallery_item = GalleryItem.objects.create(
+            title=title,
+            image_url="static/categories/" + uploaded_file.name,
+            description=description,
+            category_id=category_id
+        )
+
+        return Response({"status": True, "message": "Image uploaded successfully", "img_path": "static/categories/" + uploaded_file.name})
+
+    return Response({"status": False, "message": "No image uploaded"}, status=400)

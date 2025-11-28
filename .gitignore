@@ -21,7 +21,6 @@ env/
 # Django
 /staticfiles/
 /media/
-/static/
 *.pot
 *.pyc
 

@@ -1,0 +1,44 @@
+<!-- ...existing code... -->
+<div class="modal fade" id="addimagemodal" tabindex="-1" aria-labelledby="addimageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- changed: add modal-panel class so global css targets this modal -->
+        <div class="modal-content border-0 rounded-3 shadow-sm modal-panel">
+            <div class="modal-body p-0">
+                <!-- keep consultation-form (no bg-white so theme surface applies) -->
+                <div class="consultation-form p-4">
+                    <div class="form-header d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="m-0 text-dark" id="addimageLabel">Add image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div id="" class=""></div>
+                    <div class="form-group mb-3 d-none">
+                        <label for="image-id" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="image-id" name="id" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="image-title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="image-title" name="title" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="image-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="image-description" name="description" rows="4"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="image-icon" class="form-label">Display Image
+                        <input type="file" class="form-control" id="image-icon" name="icon" placeholder="bi bi-code-slash">
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary saveimage">Save image</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ...existing code... -->

@@ -2,25 +2,25 @@
 
 {% block content %}
 
-  <main class="main">
+<main class="main">
 
-    <!-- Portfolio Details Section -->
-    <section id="portfolio-details" class="portfolio-details section">
+  <!-- Portfolio Details Section -->
+  <section id="portfolio-details" class="portfolio-details section">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>{{category.name}}</h2>
-        <p>{{category.description}}</p>
-      </div><!-- End Section Title -->
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>{{category.name}}</h2>
+      <p>{{category.description}}</p>
+    </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row gy-4">
-          <div class="col-lg-12" data-aos="fade-right">
-            <div class="portfolio-details-media">
-              <div class="main-image">
-                <div class="portfolio-details-slider swiper init-swiper" data-aos="zoom-in">
-                  <script type="application/json" class="swiper-config">
+      <div class="row gy-4">
+        <div class="col-lg-12" data-aos="fade-right">
+          <div class="portfolio-details-media">
+            <!-- <div class="main-image">
+              <div class="portfolio-details-slider swiper init-swiper" data-aos="zoom-in">
+                <script type="application/json" class="swiper-config">
                     {
                       "loop": true,
                       "speed": 1000,
@@ -44,46 +44,61 @@
                       }
                     }
                   </script>
-                  <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                      <img src="static/assets/img/portfolio/portfolio-5.webp" alt="Portfolio Image" class="img-fluid">
-                    </div>
-                    <div class="swiper-slide">
-                      <img src="static/assets/img/portfolio/portfolio-7.webp" alt="Portfolio Image" class="img-fluid">
-                    </div>
-                    <div class="swiper-slide">
-                      <img src="static/assets/img/portfolio/portfolio-8.webp" alt="Portfolio Image" class="img-fluid">
-                    </div>
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img src="static/assets/img/portfolio/portfolio-5.webp" alt="Portfolio Image" class="img-fluid">
                   </div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
+                  <div class="swiper-slide">
+                    <img src="static/assets/img/portfolio/portfolio-7.webp" alt="Portfolio Image" class="img-fluid">
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="static/assets/img/portfolio/portfolio-8.webp" alt="Portfolio Image" class="img-fluid">
+                  </div>
                 </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
               </div>
+            </div> -->
 
-              <div class="thumbnail-grid" data-aos="fade-up" data-aos-delay="200">
-                <div class="row g-2 mt-3">
-                  <div class="col-3">
-                    <img src="static/assets/img/portfolio/portfolio-4.webp" alt="Gallery Image" class="img-fluid glightbox">
-                  </div>
-                  <div class="col-3">
-                    <img src="static/assets/img/portfolio/portfolio-6.webp" alt="Gallery Image" class="img-fluid glightbox">
-                  </div>
-                  <div class="col-3">
-                    <img src="static/assets/img/portfolio/portfolio-11.webp" alt="Gallery Image" class="img-fluid glightbox">
-                  </div>
-                  <div class="col-3">
-                    <img src="static/assets/img/portfolio/portfolio-12.webp" alt="Gallery Image" class="img-fluid glightbox">
+            <div class="" data-aos="fade-up" data-aos-delay="200" min-height="500px">
+              <div class="row g-2 mt-3">
+                <div class="col-4">
+                  <img src="static/assets/img/portfolio/portfolio-4.webp" alt="Gallery Image1"
+                    class="img-fluid glightbox">
+                </div>
+                <div class="col-4">
+                  <img src="static/assets/img/portfolio/portfolio-6.webp" alt="Gallery Image"
+                    class="img-fluid glightbox">
+                </div>
+                <div class="col-4">
+                  <img src="static/assets/img/portfolio/portfolio-11.webp" alt="Gallery Image1 ejfewfbewkfb efbwkewkfbew ebwkfewkfbew bewjkfewjkfb"
+                    class="img-fluid glightbox">
+                </div>
+                <div class="col-4">
+                  <img src="static/assets/img/portfolio/portfolio-12.webp" alt="Gallery Image"
+                    class="img-fluid glightbox">
+                </div>
+                <!-- upload image input -->
+                 {% if user.is_authenticated %}
+                 <div class="col-4 mt-4">
+                  <div style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#addimagemodal">
+                    <h1>
+                      <i class="bi bi-plus-circle add_category"></i>
+                    </h1>
                   </div>
                 </div>
+                  {% endif %}
+
               </div>
             </div>
           </div>
         </div>
-
       </div>
 
-    </section><!-- /Portfolio Details Section -->
+    </div>
 
-  </main>
+  </section><!-- /Portfolio Details Section -->
+  {% include 'components/modals/add_image_modal.html' %}
+</main>
 
 {% endblock %}
