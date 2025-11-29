@@ -8,7 +8,7 @@ from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from webapp.services.db_service import get_service, add_new_service, get_category
-from webapp.models import Category
+from webapp.models import Category, GalleryItem
 
 # Create your views here.
 def landing(request):
@@ -21,11 +21,18 @@ def contact(request):
     return render(request, 'public/contact.html')
 
 def gallery(request):
-    all_categories = get_category()
+    is_admin = False
+    if request.user.is_authenticated:
+        is_admin = True
+    all_categories = get_category(admin_view=is_admin)
     return render(request, 'public/gallery.html', {"all_categories": all_categories})
 
 def services(request):
-    all_services = get_service()
+    if request.user.is_authenticated:
+        is_admin = True
+    else:
+        is_admin = False
+    all_services = get_service(admin_view=is_admin)
     print(all_services)
     return render(request, 'public/services.html', {"all_services": all_services})
 
@@ -65,7 +72,7 @@ def add_update_service(request):
 @api_view(['POST'])
 def get_service_by_id(request):
     data = request.data
-    data = get_service(data.get("service_id"))
+    data = get_service(service_id=data.get("service_id"), admin_view=True)
 
     resp_data = {
         "id": data[0].id,
@@ -78,6 +85,21 @@ def get_service_by_id(request):
 
 @csrf_exempt  # disables CSRF check
 @api_view(['POST'])
+def get_category_by_id(request):
+    data = request.data
+    data = get_category(category_id=data.get("category_id"), admin_view=True)
+
+    resp_data = {
+        "id": data[0].id,
+        "title": data[0].name,
+        "full_description": data[0].description,
+        "icon": data[0].img_path,
+        "is_active": data[0].is_active,
+    }
+    return Response({"status": True, "message": "category data fetch successfully", "data": resp_data}, status=status.HTTP_200_OK)
+
+@csrf_exempt  # disables CSRF check
+@api_view(['POST'])
 def add_update_category(request):
     """
     Single POST API for Add + Update Category
@@ -86,11 +108,13 @@ def add_update_category(request):
 
     if request.method != "POST":
         return Response({"status": False, "message": "Invalid method"}, status=400)
-
+    request_data = request.data
+    print(request_data)
     category_id = request.POST.get("id")
     name = request.POST.get("name")
     description = request.POST.get("description")
-    uploaded_file = request.FILES.get("img_path")   # <-- FIXED NAME
+    uploaded_file = request.FILES.get("img_path")
+    is_active = request.POST.get("is_active")
 
     # Validate
     if not name:
@@ -117,7 +141,8 @@ def add_update_category(request):
         Category.objects.create(
             name=name,
             description=description,
-            img_path=saved_img_path
+            img_path=saved_img_path,
+            is_active=is_active == 'true'
         )
         return Response({"status": True, "message": "Category added successfully"})
 
@@ -129,6 +154,7 @@ def add_update_category(request):
 
     category.name = name
     category.description = description
+    category.is_active = is_active == 'true'
 
     # update only if new file uploaded
     if saved_img_path:
@@ -142,7 +168,41 @@ def category_info(request):
     try:
         category_id = request.GET.get("category_id")
         category = Category.objects.get(id=category_id)
+        gallery_items = GalleryItem.objects.filter(category=category, is_active=True)
     except Category.DoesNotExist:
         return redirect("gallery")  # Redirect if category not found
 
-    return render(request, 'public/category-details.html', {"category": category})
+    return render(request, 'public/category-details.html', {"category": category, 'gallery_items': gallery_items})
+
+@csrf_exempt  # disables CSRF check
+@api_view(['POST'])
+def add_gallery_item(request):
+    if request.method == "POST":
+        uploaded_file = request.FILES.get("img_path")
+        if not uploaded_file:
+            return Response({"status": False, "message": "No image uploaded"}, status=400)
+
+        title = request.POST.get("title", "")
+        description = request.POST.get("description", "")
+        category_id = request.POST.get("category_id")
+
+        folder = os.path.join(settings.BASE_DIR, f"static/categories/{category_id}")
+        os.makedirs(folder, exist_ok=True)
+
+        file_path = os.path.join(folder, uploaded_file.name)
+        with open(file_path, "wb+") as dest:
+            for chunk in uploaded_file.chunks():
+                dest.write(chunk)
+
+        gallery_item = GalleryItem.objects.create(
+            title=title,
+            description=description,
+            image_url=f"static/categories/{category_id}/" + uploaded_file.name,
+            category_id=category_id
+        )
+
+        return Response({
+            "status": True,
+            "message": "Image uploaded successfully",
+            "img_path": f"static/categories/{category_id}" + uploaded_file.name
+        })

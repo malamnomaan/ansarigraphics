@@ -32,7 +32,9 @@
               <div class="portfolio-img">
                 <img src="{{category.img_path}}" alt="Portfolio Item" class="img-fluid">
                 <div class="portfolio-overlay">
-                  <a href="category_info?category_id={{category.id}}" class="portfolio-details-link"><i class="bi bi-link"></i></a>
+                  {% if user.is_authenticated %}
+                  <a class="portfolio-details-link"><i class="bi bi-pencil-square edit_category" category_id="{{category.id}}" data-bs-toggle="modal" data-bs-target="#addcategorymodal"></i></a>
+                  {% endif %}
                   <a href="category_info?category_id={{category.id}}" class="portfolio-details-link"><i class="bi bi-link"></i></a>
                 </div>
               </div>
@@ -80,6 +82,7 @@
       formData.append("name", $("#category-title").val());
       formData.append("description", $("#category-description").val());
       formData.append("id", $("#category-id").val());
+      formData.append("is_active", $("#category-is-active").is(":checked"));
 
       // Append file properly
       var file = $("#category-icon")[0].files[0];
@@ -97,6 +100,38 @@
         success: function (response) {
           alert(response.message);
           location.reload();
+        },
+        error: function (xhr, status, error) {
+          alert("AJAX error: " + error);
+        }
+      });
+    });
+
+    $(".edit_category").click(function () {
+      var category_id = $(this).attr("category_id");
+      console.log("Editing category ID:", category_id);
+      $('#category-id').val("");
+      $("#category-title").val("");
+      $("#category-description").val("");
+      $("#category-icon").val("");
+      $.ajax({
+        url: "get_category_by_id",
+        type: "POST",
+        contentType: "application/json",
+        headers: { "X-CSRFToken": csrftoken },
+        data: JSON.stringify({ category_id: category_id }),
+        success: function (response) {
+          if (response.status) {
+            console.log("Category data:", response.data);
+            $('#category-id').val(response.data.id);
+            $("#category-title").val(response.data.title);
+            $("#category-description").val(response.data.full_description);
+            $('#category-is-active').prop('checked', response.data.is_active);
+            $(".savecategory").attr("category_id", category_id);
+            // $("#category-icon").val(response.data.icon);
+          } else {
+            alert("Error: " + response.message);
+          }
         },
         error: function (xhr, status, error) {
           alert("AJAX error: " + error);
