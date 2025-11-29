@@ -39,7 +39,16 @@
                 </div>
               </div>
               <div class="portfolio-info">
-                <h4>{{category.name}}</h4>
+                <h4>
+                  {{category.name}}
+                  {% if user.is_authenticated %}
+                    {% if category.is_active %}
+                      <i class="bi bi-bi bi-check2 text-success"></i>
+                    {% else %}
+                      <i class="bi bi-x-lg text-danger"></i>
+                    {% endif %}
+                {% endif %}
+                </h4>
                 <p>{{category.description}}</p>
               </div>
             </div>
