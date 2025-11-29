@@ -96,8 +96,12 @@ WSGI_APPLICATION = 'ansarigraphics.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ansarigraphics',
+        'USER': 'ansarigraphics',
+        'PASSWORD': 'xbIbsm1p5APP5xxXpzNSfyirSZUBMXoJ',
+        'HOST': 'dpg-d4le3d8gjchc73alrt90-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
