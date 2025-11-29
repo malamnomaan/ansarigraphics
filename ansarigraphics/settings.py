@@ -97,10 +97,10 @@ WSGI_APPLICATION = 'ansarigraphics.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ansarigraphics',
-        'USER': 'ansarigraphics',
-        'PASSWORD': 'xbIbsm1p5APP5xxXpzNSfyirSZUBMXoJ',
-        'HOST': 'dpg-d4le3d8gjchc73alrt90-a.oregon-postgres.render.com',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '5432',
     }
 }
