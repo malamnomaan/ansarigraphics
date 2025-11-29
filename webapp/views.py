@@ -171,7 +171,7 @@ def add_gallery_item(request):
         gallery_item = GalleryItem.objects.create(
             title=title,
             description=description,
-            image_url=f"static/categories/{category_id}" + uploaded_file.name,
+            image_url=f"static/categories/{category_id}/" + uploaded_file.name,
             category_id=category_id
         )
 

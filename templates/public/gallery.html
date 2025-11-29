@@ -32,7 +32,9 @@
               <div class="portfolio-img">
                 <img src="{{category.img_path}}" alt="Portfolio Item" class="img-fluid">
                 <div class="portfolio-overlay">
-                  <a href="category_info?category_id={{category.id}}" class="portfolio-details-link"><i class="bi bi-link"></i></a>
+                  {% if user.is_authenticated %}
+                  <a class="portfolio-details-link"><i class="bi bi-pencil-square"></i></a>
+                  {% endif %}
                   <a href="category_info?category_id={{category.id}}" class="portfolio-details-link"><i class="bi bi-link"></i></a>
                 </div>
               </div>
