@@ -32,6 +32,11 @@
               <h3>{{service.title}} 
                 {% if user.is_authenticated %}
                   <i class="bi bi-pencil-square edit_service" service_id="{{service.id}}"  data-bs-toggle="modal" data-bs-target="#addservicemodal"></i>
+                  {% if service.is_active %}
+                  <i class="bi bi-bi bi-check2 text-success"></i>
+                  {% else %}
+                  <i class="bi bi-x-lg text-danger"></i>
+                  {% endif %}
                 {% endif %}
               </h3>
               <p>{{service.full_description}}</p>
@@ -77,7 +82,8 @@
         title: $("#service-title").val(),
         full_description: $("#service-description").val(),
         icon: $("#service-icon").val(),
-        id : $("#service-id").val()
+        id : $("#service-id").val(),
+        is_active: $('#service-is-active').is(':checked')
       };
 
       $.ajax({
@@ -119,6 +125,7 @@
             $("#service-title").val(response.data.title);
             $("#service-description").val(response.data.full_description);
             $("#service-icon").val(response.data.icon);
+            $('#service-is-active').prop('checked', response.data.is_active);
             $(".saveservice").attr("service_id", service_id);
           } else {
             alert("Error: " + response.message);

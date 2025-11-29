@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout_user/', logout_user, name='logout_user'),
     path('add_update_service', add_update_service, name='add_update_service'),
     path('get_service_by_id', get_service_by_id, name='get_service_by_id'),
+    path('get_category_by_id', get_category_by_id, name='get_category_by_id'),
     path('add_update_category', add_update_category, name='add_update_category'),
     path('category_info', category_info, name='category_info'),
     path('add_gallery_item', add_gallery_item, name='add_gallery_item'),
