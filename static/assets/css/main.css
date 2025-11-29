@@ -33,7 +33,7 @@
   --nav-hover-color: #1387c1; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #e7f2f7; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #051117; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-  --nav-dropdown-color: #e7f2f7; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-color: #313851; /* Used for navigation links of the dropdown items in the navigation menu. */
   --nav-dropdown-hover-color: #1387c1; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
@@ -1541,7 +1541,7 @@ section,
 --------------------------------------------------------------*/
 .services .service-item {
   display: flex;
-  background-color: var(--surface-color);
+  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
   border-radius: 12px;
   padding: 2rem;
   height: 100%;
@@ -1549,6 +1549,10 @@ section,
   overflow: hidden;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
   transition: all 0.4s ease;
+}
+
+.service-item{
+  background-color: var(--surface-color);
 }
 
 .services .service-item::before {
@@ -2301,6 +2305,7 @@ section,
 
 .portfolio .portfolio-card .portfolio-info {
   padding: 20px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
 }
 
 .portfolio .portfolio-card .portfolio-info h4 {
