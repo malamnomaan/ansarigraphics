@@ -33,7 +33,6 @@ def services(request):
     else:
         is_admin = False
     all_services = get_service(admin_view=is_admin)
-    print(all_services)
     return render(request, 'public/services.html', {"all_services": all_services})
 
 def login_page(request):
@@ -108,8 +107,6 @@ def add_update_category(request):
 
     if request.method != "POST":
         return Response({"status": False, "message": "Invalid method"}, status=400)
-    request_data = request.data
-    print(request_data)
     category_id = request.POST.get("id")
     name = request.POST.get("name")
     description = request.POST.get("description")
