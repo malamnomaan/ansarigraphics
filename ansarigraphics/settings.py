@@ -29,7 +29,7 @@ load_dotenv(env_path)
 SECRET_KEY = 'django-insecure-ihs%bzhumtcpv5e@b!jm)a&^u7po#@88rsh#o3s_8(s2v*o0vn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = [
