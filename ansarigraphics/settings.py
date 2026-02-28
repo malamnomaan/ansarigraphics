@@ -29,7 +29,7 @@ load_dotenv(env_path)
 SECRET_KEY = 'django-insecure-ihs%bzhumtcpv5e@b!jm)a&^u7po#@88rsh#o3s_8(s2v*o0vn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 INTERNAL_IPS = [
@@ -148,3 +148,10 @@ STATICFILES_DIRS = [
 	]
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://ansarigraphics.onrender.com",
+    "https://www.ansarigraphics.onrender.com",
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
